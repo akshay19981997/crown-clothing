@@ -1,9 +1,16 @@
-import { signInWithGooglePopup } from "../../utils/firbase.utils";
+
+import SignInForm from "../../components/sign-in-form/sign-in-form.component";
+
 import { useEffect } from "react";
 import { getRedirectResult } from "firebase/auth";
 import {auth,createUserDocumentFromAuth,signInWithGoogleRedirect} from "../../utils/firbase.utils";
 import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
-const SignIn = () => {
+import FormInput from "../../components/form-input/form-input.component";
+import Button from "../../components/button/button.component";
+import { useState } from "react";
+import './authentication.styles.scss'
+
+const Authentication = () => {
     // console.log("Sign in");
     // useEffect(()=>{
     //     console.log("UseEffect Run")
@@ -15,27 +22,19 @@ const SignIn = () => {
     // fetchData();
         
     // },[])
-    const logGoogleUser = async() =>
-    {
-        
-            const {user} = await signInWithGooglePopup();
-            console.log(user);
-            const userDocRef = await createUserDocumentFromAuth(user);
 
-            
-            
-            
-    }
+    
+
+   
    
     // console.log("Before useEffect")
     return(
-        <>
-        <h1>Sign In Page</h1>
-        <button onClick={logGoogleUser}>Sign in with google popup</button>
+        <div className="authentication-container">
+        <SignInForm/>
         {/* <button onClick={signInWithGoogleRedirect}>Sign in with google Redirect</button> */}
         <SignUpForm />
-        </>
+        </div>
     )
 }
 
-export default SignIn
+export default Authentication

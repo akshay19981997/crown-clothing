@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState,useContext } from "react"
 import {createAuthUserWithEmailAndPassword,createUserDocumentFromAuth} from '../../utils/firbase.utils'
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+import { UserContext } from "../../contexts/user.context";
 const SignUpForm = () =>{
     const defaultFormFields = {
         displayName :'',
@@ -11,6 +12,7 @@ const SignUpForm = () =>{
     }
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {displayName,email,password,confirmPassword} = formFields;
+    const {setUserData}=useContext(UserContext);
     console.log(formFields)
     
 
@@ -35,7 +37,8 @@ const handleSubmit = async (event) => {
     const {user} = await createAuthUserWithEmailAndPassword(email,password);
     console.log(user);
     const userDocRefNew = await createUserDocumentFromAuth(user,{'displayName':displayName});
-    resetFormFields(); 
+    resetFormFields();
+    setUserData(user);
     }
     catch(error){
         console.log("Error encountered", error);
